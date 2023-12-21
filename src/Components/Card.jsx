@@ -70,9 +70,7 @@ const Card = () => {
               >
                 Comprar
               </button>
-              <Link to={`/detalles/${zapatilla?.Id}`} className="btn btn-primary">
-                Detalles
-              </Link>
+              
             </div>
           </div>
         ))}

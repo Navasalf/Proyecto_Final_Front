@@ -29,8 +29,6 @@ const RegisterUsers = () => {
         }),
       });
 
-      console.log("Respuesta del servidor para register:", response);
-
       if (response.ok) {
         Swal.fire({
           title: "¡Gracias por registrarte!",

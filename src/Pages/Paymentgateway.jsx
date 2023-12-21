@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { NavLink, useNavigate } from "react-router-dom";
 
 const Paymentgateway = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -10,38 +9,14 @@ const Paymentgateway = () => {
   const [paymentMethod, setPaymentMethod] = useState("mastercard");
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const navigate = useNavigate();
-
   const handleInputChange = (e, setter) => {
-
     const inputValue = e.target.value;
     if (setter === setCardNumber || setter === setSecurityCode) {
-      if (!/^\d*$/.test(inputValue)) {
+      if (!/^\d+|\s*$/.test(inputValue)) {
         return;
       }
     }
     setter(inputValue);
-
-    let inputValue = e.target.value;
-
-    if (setter === setCardNumber || setter === setSecurityCode) {
-      inputValue = inputValue.replace(/\D/g, ""); // Remove non-digit characters
-    }
-
-    if (setter === setExpiryDate) {
-
-      if (inputValue.length === 2) {
-        inputValue += "/";
-      }
-      else if (inputValue.length >= 3) {
-        inputValue = inputValue.slice(0, 2) + "/" + inputValue.slice(3);
-      }
-    }
-    const formattedValue = inputValue.slice(0, 16);
-
-
-    const spacedValue = formattedValue.replace(/(\d{4})(?=.)/g, "$1 ");
-
-    setter(spacedValue);
 
     const allFieldsFilled =
       cardNumber !== "" &&
@@ -50,14 +25,13 @@ const Paymentgateway = () => {
       securityCode !== "";
     setIsButtonEnabled(allFieldsFilled);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isButtonEnabled) {
       return;
     }
-  };
 
+  };
   return (
     <div className="container container1">
       <form className="w-50 bg-light mb-4 mx-auto" onSubmit={handleSubmit}>
@@ -73,17 +47,12 @@ const Paymentgateway = () => {
               <input
                 type="text"
                 className="form-control"
-                id=""
+                id="Numeros"s
                 placeholder="Número de tarjeta"
                 value={cardNumber}
                 onChange={(e) => handleInputChange(e, setCardNumber)}
                 pattern="[0-9]*"
                 maxLength="19"
-                id="Numeros"
-                value={cardNumber}
-                onChange={(e) => handleInputChange(e, setCardNumber)}
-                maxLength={19} // Allow only 16 digits + 3 spaces
-                pattern="\d{4}\s?\d{4}\s?\d{4}\s?\d{4}" // Ensure valid format
                 required
               />
             </div>
@@ -184,24 +153,11 @@ const Paymentgateway = () => {
             <button type="submit" className="btn btn-primary" disabled={!isButtonEnabled}>
               Realizar Pago
             </button>
-            <NavLink to="/" className="Text-decoration-none">
-              <button type="submit" className="btn btn-secondary m-2">
-                Cancelar
-              </button>
-            </NavLink>
-            <NavLink to="/Loading" className="Text-decoration-none">
-              <button type="submit" className="btn btn-primary m-2" disabled={!isButtonEnabled}>
-                Realizar Pago
-              </button>
-            </NavLink>
           </div>
         </div>
       </form>
     </div>
   );
 };
-
 export default Paymentgateway;
-
-
 

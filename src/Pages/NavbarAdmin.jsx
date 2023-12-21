@@ -29,7 +29,7 @@ function NavbarAdmin() {
         <div className="col">
             <NavLink to="/" className="navbar-logo">
               <img
-                src="src/assets/img/logo_snicky_blanco.png"
+                src="src/assets/img/logo.png"
                 className="d-inline-block align-top"
                 alt="Logo de la empresa"
               />
@@ -44,13 +44,8 @@ function NavbarAdmin() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </Col>
-            <Col xs="auto" className='mx-4'>
-              <Button variant="outline-success" type="submit">
-                <BiSearch style={{ textDecoration: 'none' }} />
-              </Button>
-            </Col>
         <span className='mx-5 fw-bold text-white mx-2'>Bienvenido,
-          <NavLink to="/detailsusers" className="text-decoration-none mx-1 text-white">
+          <NavLink to="/detailsusers" className="text-decoration-none mx-3 text-white">
             {loggedInUser.username}👨‍💼
           </NavLink>
         </span>

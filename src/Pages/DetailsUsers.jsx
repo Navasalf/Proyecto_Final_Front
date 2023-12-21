@@ -149,11 +149,6 @@ const DetailsUsers = () => {
       <img src={backgroundImage} alt="404" style={{ height: '200px' }} />
       <h1 className='fw-bold'>Usuario: {loggedInUser.username}</h1>
       <div className="mx-auto d-flex align-items-center">
-        <Col xs="auto">
-          <Button type="submit">
-            <BiSearch style={{ textDecoration: 'none' }} />
-          </Button>
-        </Col>
       </div>
       <div>
         <button className="btn btn-success btn-lg btn-block m-3" onClick={handleNewPost}>
