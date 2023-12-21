@@ -39,3 +39,51 @@ body {
   border-width: 1px;
   border-color: #242424;
 }
+
+.rounded-image {
+  border-radius: 8px;
+  
+}
+
+.search{
+  list-style-type: none;
+}
+
+.chat-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.logo {
+  margin-right: 10px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.user-message,
+.bot-message {
+  margin-top: 10px;
+}
+
+.Load {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 47%;
+  margin-top: 20%;
+  color: black;
+  font-size: 150px;
+}
+
+.loading {
+  font-family: 'Roboto', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 20%;
+}

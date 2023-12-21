@@ -1,62 +1,68 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import io from 'socket.io-client';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
-const socket = io('http://localhost:8080'); // Asegúrate de cambiar la URL al servidor de tu backend
+function Chat() {
+  const [userMessage, setUserMessage] = useState('');
+  const [botMessage, setBotMessage] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
-const MainPage = () => {
-  const [showMessageModal, setShowMessageModal] = useState(false);
-  const [showChatModal, setShowChatModal] = useState(false);
-
-  const handleShowMessageModal = () => {
-    setShowMessageModal(true);
+  const handleInputChange = (event) => {
+    setUserMessage(event.target.value);
   };
 
-  const handleShowChatModal = () => {
-    setShowMessageModal(false);
-    setShowChatModal(true);
+  const handleSendMessage = async () => {
+    const response = await fetch('http://localhost:5000/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: userMessage }),
+    });
+
+    const data = await response.json();
+    setBotMessage(data.message);
+    setShowModal(true);
   };
 
-  const handleCloseModals = () => {
-    setShowMessageModal(false);
-    setShowChatModal(false);
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
-    <div>
-      <button className="btn btn-primary" onClick={handleShowMessageModal}>
-        <i className="fas fa-comment"></i> Mensaje
-      </button>
-      <Modal show={showMessageModal} onHide={handleCloseModals}>
-        <Modal.Header closeButton>
-          <Modal.Title>Mensaje</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Contenido del mensaje...
-          <button className="btn btn-primary" onClick={handleShowChatModal}>
-            Iniciar Chat
+    <div className="App">
+      <div className="chat-container">
+        <h1>Chatea Conmigo</h1>
+          <div className="logo"><img
+            src="src/assets/img/logoOG.png"
+            className="d-inline-block align-top mx-4"
+            alt="Logo de la empresa"
+          /></div>
+        <div className="input-container">
+          <input
+            type="text"
+            value={userMessage}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+            placeholder="Escribe tu mensaje..."
+            className="form-control rounded-pill"
+          />
+          <button onClick={handleSendMessage} className="btn btn-success rounded-pill ml-2">
+            Enviar
           </button>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModals}>
-            Cerrar
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <Modal show={showChatModal} onHide={handleCloseModals} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Chat con el Bot</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModals}>
-            Cerrar
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        </div>
+        <div className="conversation-container">
+          <p className="bot-message fw-bold">Bot:</p> <span>{botMessage}</span>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
-export default MainPage;
+export default Chat;
+

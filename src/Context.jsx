@@ -131,8 +131,13 @@ const ShoesProvider = ({ children }) => {
     setCarrito([]);
   };
 
+  const getZapatillaById = (id) => {
+    return carrito.find((zapatilla) => zapatilla.Id === id);
+  };
+
 
   const contextValue = {
+    getZapatillaById,
     clearCart,
     carrito,
     handleLogout,

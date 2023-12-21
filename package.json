@@ -19,6 +19,7 @@
     "react-hook-form": "^7.48.2",
     "react-icons": "^4.12.0",
     "react-router-dom": "^6.19.0",
+    "reactstrap": "^9.2.1",
     "socket.io-client": "^4.7.2",
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.10.1"

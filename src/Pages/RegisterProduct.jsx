@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 
 const RegisterProduct = () => {
   const navigate = useNavigate();
@@ -35,31 +34,18 @@ const RegisterProduct = () => {
         }),
       });
 
-      const responseData = await response.json();
-
       if (response.ok) {
-        const { message } = responseData;
-        Swal.fire({
-          title: "Producto Registrado!",
-          text: `${message}\nMarca: ${productData.marca}\nModelo: ${productData.modelo}\nPrecio: ${productData.precio}`,
-          icon: "success",
-          confirmButtonText: "Aceptar",
-        });
-
-        navigate("/");
+        navigate(`/detailsusers`);
       } else {
+        navigate(`/detailsusers`);
+        
+        const responseData = await response.json();
         const errorMessage = responseData.message || "Error al registrar el producto";
         console.error("Error al registrar el producto. Detalles:", responseData);
         throw new Error(errorMessage);
       }
     } catch (error) {
       console.error("Error:", error.message);
-      const errorMessage = error.response ? error.response.statusText : error.message;
-      Swal.fire({
-        title: "Error al registrar el producto",
-        text: errorMessage,
-        icon: "error",
-      });
     }
   };
 
@@ -162,5 +148,3 @@ const RegisterProduct = () => {
 };
 
 export default RegisterProduct;
-
-

@@ -19,6 +19,8 @@ import NavbarAdmin from "./Pages/NavbarAdmin";
 import { ShoesContext } from "./Context";
 import './index.css';
 import Paymentgateway from "./Pages/Paymentgateway";
+import Bot from "./Pages/Bot";
+import Loading from "./Pages/Loading";
 
 function App() {
   const [contextReady, setContextReady] = useState(false);
@@ -58,6 +60,9 @@ function App() {
         <Route path="/successful" element={<Successful />} />
         <Route path="/tarjeta" element={<Paymentgateway />} />
         <Route path="/detailsusers" element={<DetailsUsers />} />
+        <Route path="/bot" element={<Bot />} />
+        <Route path="/paymentgateway" element={<Paymentgateway />} />
+        <Route path="/loading" element={<Loading />} />
       </Routes>
       <Footer />
     </BrowserRouter>

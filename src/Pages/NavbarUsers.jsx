@@ -29,7 +29,7 @@ function NavbarUsers() {
         <div className="col">
             <NavLink to="/" className="navbar-logo">
               <img
-                src="src/assets/img/logo_snicky_blanco.png"
+                src="src/assets/img/logo.png"
                 className="d-inline-block align-top"
                 alt="Logo de la empresa"
               />
@@ -43,11 +43,6 @@ function NavbarUsers() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-            </Col>
-            <Col xs="auto" className='mx-4'>
-              <Button variant="outline-success" type="submit">
-                <BiSearch style={{ textDecoration: 'none' }} />
-              </Button>
             </Col>
         <span className='mx-5 text-white'>Bienvenido,
             <span className= 'mx-3 fw-bold text-white'>{loggedInUser.username}</span>

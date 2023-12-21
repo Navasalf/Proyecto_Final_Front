@@ -31,7 +31,6 @@ const ForgotPassword = () => {
         }, 3000);
   
       } else if (response.status === 400) {
-        // El correo electrónico no está registrado
         Swal.fire({
           icon: 'error',
           title: 'Error',
