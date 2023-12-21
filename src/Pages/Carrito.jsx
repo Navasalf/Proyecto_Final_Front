@@ -44,6 +44,7 @@ const Carrito = () => {
       <div className="card detalles w-50 m-auto mt-5 p-5">
         <h5>Detalles del pedido:</h5>
         <div className="p-3 bg-white">
+
           {carrito.map((cartItem, index) => {
             const product = cartItem[0];
             return product ? (
@@ -70,6 +71,14 @@ const Carrito = () => {
                     +
                   </button>
                 </div>
+
+          {carrito.map((producto) => (
+            // Added the missing closing tag for the `div` element here
+            <div key={producto.id} className="d-flex justify-content-between py-2">
+              <div className="d-flex justify-content-between align-items-center">
+                <img src={producto.imagen} width="50" alt="" />
+                <h6 className="mb-0 text-capitalize p-2">{`${producto.marca} ${producto.modelo}`}</h6>
+
               </div>
             ) : null;
           })}
@@ -86,9 +95,26 @@ const Carrito = () => {
                 <button className="btn btn-primary mx-5">
                   Seguir Comprando
                 </button>
+
               </NavLink>
             </>
           )}
+
+              </div>
+            </div>
+          ))}
+          <h2 className="my-4">Total: ${formatNumber(total)}</h2>
+          <NavLink to="/successful" className="text-decoration-none">
+            <button className="btn btn-success" onClick={handleIrAPagar}>
+              {loggedInUser ? 'Finalizar Compra' : 'Iniciar Sesión para Pagar'}
+            </button>
+          </NavLink>
+          <NavLink to="/tarjeta" className="text-decoration-none">
+            <button className="btn btn-primary mx-5">
+              Seguir Comprando
+            </button>
+          </NavLink>
+
         </div>
       </div>
     </div>
@@ -96,3 +122,4 @@ const Carrito = () => {
 };
 
 export default Carrito;
+

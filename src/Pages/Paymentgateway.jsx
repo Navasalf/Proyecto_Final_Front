@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 const Paymentgateway = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [cardName, setCardName] = useState("");
@@ -9,23 +10,13 @@ const Paymentgateway = () => {
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const navigate = useNavigate();
   const handleInputChange = (e, setter) => {
-    let inputValue = e.target.value;
+    const inputValue = e.target.value;
     if (setter === setCardNumber || setter === setSecurityCode) {
       if (!/^\d+|\s*$/.test(inputValue)) {
         return;
       }
-
-      const formattedValue = inputValue.replace(/\D/g, "").slice(0, 16);
-      const spacedValue = formattedValue.replace(/(\d{4})(?=.)/g, "$1 ");
-      setter(spacedValue);
-    } else if (setter === setExpiryDate) {
-      if (inputValue.length === 2 && inputValue.charAt(2) !== "/") {
-        inputValue += "/";
-      }
-      setter(inputValue);
-    } else {
-      setter(inputValue);
     }
+    setter(inputValue);
 
     const allFieldsFilled =
       cardNumber !== "" &&
@@ -60,7 +51,8 @@ const Paymentgateway = () => {
                 placeholder="Número de tarjeta"
                 value={cardNumber}
                 onChange={(e) => handleInputChange(e, setCardNumber)}
-                maxLength={19}
+                pattern="[0-9]*"
+                maxLength="19"
                 required
               />
             </div>
@@ -158,16 +150,9 @@ const Paymentgateway = () => {
           <div
             className="card-footer" style={{ display: "flex", justifyContent: "end" }}
           >
-            <NavLink to="/" className="Text-decoration-none">
-              <button type="submit" className="btn btn-secondary m-2">
-                Cancelar
-              </button>
-            </NavLink>
-            <NavLink to="/Loading" className="Text-decoration-none">
-              <button type="submit" className="btn btn-primary m-2" disabled={!isButtonEnabled}>
-                Realizar Pago
-              </button>
-            </NavLink>
+            <button type="submit" className="btn btn-primary" disabled={!isButtonEnabled}>
+              Realizar Pago
+            </button>
           </div>
         </div>
       </form>

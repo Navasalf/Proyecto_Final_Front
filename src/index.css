@@ -87,3 +87,23 @@ body {
   margin-top: 50px;
   margin-bottom: 20%;
 }
+
+
+.Load {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 47%;
+  margin-top: 20%;
+  color: black;
+  font-size: 150px;
+}
+h3 {
+  font-family: 'Roboto', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 20%;
+  
+}
