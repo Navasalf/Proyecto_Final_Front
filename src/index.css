@@ -98,7 +98,7 @@ body {
   color: black;
   font-size: 150px;
 }
-h3 {
+.loading {
   font-family: 'Roboto', Arial, sans-serif;
   display: flex;
   justify-content: center;

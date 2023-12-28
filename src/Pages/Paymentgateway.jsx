@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Paymentgateway = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -9,28 +9,49 @@ const Paymentgateway = () => {
   const [paymentMethod, setPaymentMethod] = useState("mastercard");
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const navigate = useNavigate();
+
   const handleInputChange = (e, setter) => {
-    const inputValue = e.target.value;
+    let inputValue = e.target.value;
+
     if (setter === setCardNumber || setter === setSecurityCode) {
       if (!/^\d+|\s*$/.test(inputValue)) {
-        return;
+        return; // Prevent non-digit or non-space input
       }
-    }
-    setter(inputValue);
+    
+      // Remove non-digit characters and truncate to 16 digits
+      const formattedValue = inputValue.replace(/\D/g, "").slice(0, 16);
 
+      // Insert spaces every 4 digits
+      const spacedValue = formattedValue.replace(/(\d{4})(?=.)/g, "$1 ");
+
+      setter(spacedValue);
+    } else if (setter === setExpiryDate) {
+      if (inputValue.length === 2 && inputValue.charAt(2) !== "/") {
+        inputValue += "/";
+      }
+      setter(inputValue); // Update expiryDate state
+    } else {
+      setter(inputValue); // Update other fields directly
+    }
+
+    // Check if all fields are filled
     const allFieldsFilled =
       cardNumber !== "" &&
       cardName !== "" &&
       expiryDate !== "" &&
       securityCode !== "";
-    setIsButtonEnabled(allFieldsFilled);
+    
+    setIsButtonEnabled(allFieldsFilled); // Update isButtonEnabled state
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!isButtonEnabled) {
       return;
     }
 
+    // Handle form submission logic here
   };
   return (
     <div className="container container1">
@@ -51,8 +72,7 @@ const Paymentgateway = () => {
                 placeholder="Número de tarjeta"
                 value={cardNumber}
                 onChange={(e) => handleInputChange(e, setCardNumber)}
-                pattern="[0-9]*"
-                maxLength="19"
+                maxLength={19}
                 required
               />
             </div>
@@ -150,9 +170,16 @@ const Paymentgateway = () => {
           <div
             className="card-footer" style={{ display: "flex", justifyContent: "end" }}
           >
-            <button type="submit" className="btn btn-primary" disabled={!isButtonEnabled}>
-              Realizar Pago
-            </button>
+            <NavLink to="/" className="Text-decoration-none">
+              <button type="submit" className="btn btn-secondary m-2">
+                Cancelar
+              </button>
+            </NavLink>
+            <NavLink to="/Loading" className="Text-decoration-none">
+              <button type="submit" className="btn btn-primary m-2" disabled={!isButtonEnabled}>
+                Realizar Pago
+              </button>
+            </NavLink>
           </div>
         </div>
       </form>
